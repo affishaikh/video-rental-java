@@ -23,14 +23,11 @@ class Customer {
 		while (rentals.hasNext()) {
 			double thisAmount;
 			Rental rental = rentals.next();
+
 			thisAmount = rental.calculateAmount();
 
 			// add frequent renter points
-			frequentRenterPoints++;
-			// add bonus for a two day new release rental
-			if ((rental.getMovie().getPriceCode() == Movie.getNewRelease())
-					&& rental.getDaysRented() > 1)
-				frequentRenterPoints++;
+			frequentRenterPoints += rental.calculatePoints();
 
 			// show figures for this rental
 			result.append("\t").append(rental.getMovie().getTitle()).append("\t").append(thisAmount).append("\n");

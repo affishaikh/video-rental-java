@@ -18,6 +18,10 @@ class Rental {
     }
 
     double calculateAmount() {
-        return this.movie.getAmountFor(this.daysRented);
+        return this.movie.calculateAmountFor(this.daysRented);
+    }
+
+    int calculatePoints() {
+        return this.movie.calculatePointsFor(this.daysRented);
     }
 }

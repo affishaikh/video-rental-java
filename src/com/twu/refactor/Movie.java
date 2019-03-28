@@ -29,7 +29,7 @@ class Movie {
 		return title;
 	}
 
-	double getAmountFor(int days) {
+	double calculateAmountFor(int days) {
 		double amount = 0;
 		switch (this.getPriceCode()) {
 			case Movie.REGULAR:
@@ -46,6 +46,11 @@ class Movie {
 		}
 
 		return amount;
+	}
+
+	int calculatePointsFor(int daysRented) {
+		if (this.priceCode == Movie.NEW_RELEASE && daysRented > 1) return 2;
+		return 1;
 	}
 }
 

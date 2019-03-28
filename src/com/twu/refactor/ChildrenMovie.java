@@ -6,7 +6,7 @@ class ChildrenMovie extends Movie {
     }
 
     @Override
-    double getAmountFor(int days) {
+    double calculateAmountFor(int days) {
         double amount = 1.5;
         if (days > 3) amount += (days - 3) * 1.5;
         return amount;

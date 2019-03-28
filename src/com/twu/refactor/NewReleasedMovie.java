@@ -6,7 +6,13 @@ class NewReleasedMovie extends Movie {
     }
 
     @Override
-    double getAmountFor(int days) {
+    double calculateAmountFor(int days) {
         return days * 3;
+    }
+
+    @Override
+    int calculatePointsFor(int days) {
+        if(days > 1) return 2;
+        return 1;
     }
 }
