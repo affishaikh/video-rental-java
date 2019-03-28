@@ -46,7 +46,7 @@ public class CustomerTest extends TestCase {
 
     public void testShouldReturnTheStatementWhenPurchasedAChildrenMovie() throws Exception {
         Customer naruto = new Customer("Naruto");
-        Movie avengers = new ChildrenMovie("Avengers");
+        Movie avengers = new Movie("Avengers", Movie.CHILDRENS);
 
         naruto.addRental(new Rental(avengers, 1));
         equalsFile("1st Output", "narutoBill", naruto.statement());
@@ -54,7 +54,7 @@ public class CustomerTest extends TestCase {
 
     public void testShouldReturnTheStatementWhenPurchasedARegularMovie() throws Exception {
         Customer kakashi = new Customer("Kakashi");
-        Movie avengers = new RegularMovie("Avengers");
+        Movie avengers = new Movie("Avengers", Movie.REGULAR);
 
         kakashi.addRental(new Rental(avengers, 3));
         equalsFile("1st Output", "kakashiBill", kakashi.statement());
@@ -62,7 +62,7 @@ public class CustomerTest extends TestCase {
 
     public void testShouldReturnTheStatementWhenPurchasedANewRealeasedMovie() throws Exception {
         Customer lee = new Customer("Lee");
-        Movie avengers = new NewReleasedMovie("Avengers");
+        Movie avengers = new Movie("Avengers", Movie.NEW_RELEASE);
 
         lee.addRental(new Rental(avengers, 1));
         equalsFile("1st Output", "leeBill", lee.statement());

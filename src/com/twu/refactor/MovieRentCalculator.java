@@ -4,6 +4,8 @@ abstract class MovieRentCalculator {
 
     abstract double calculateAmount(int days);
 
+    abstract int getPointsFor(int days);
+
     static MovieRentCalculator getRentCalculatorFor(int priceCode) {
         MovieRentCalculator movieRentCalculator = null;
 
