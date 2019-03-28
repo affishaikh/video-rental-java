@@ -15,8 +15,8 @@ public class CustomerTest extends TestCase {
 
     private Movie python = new Movie("Monty Python and the Holy Grail", Movie.REGULAR);
 	private Movie ran = new Movie("Ran", Movie.REGULAR);
-	private Movie la = new Movie("LA Confidential", Movie.NEW_RELEASE);
-	private Movie trek = new Movie("Star Trek 13.2", Movie.NEW_RELEASE);
+	private Movie la = new Movie("LA Confidential", Movie.getNewRelease());
+	private Movie trek = new Movie("Star Trek 13.2", Movie.getNewRelease());
 	private Movie wallace = new Movie("Wallace and Gromit", Movie.CHILDRENS);
 
     public void setUp (){
@@ -40,13 +40,29 @@ public class CustomerTest extends TestCase {
         equalsFile("1st Output", "outputChange", dinsdale.statement());
     }
 
+    public void testShouldReturnTheStatementWhenPurchasedAChildrenMovie() throws Exception {
+        Customer naruto = new Customer("Naruto");
+        Movie avengers = new ChildrenMovie("Avengers");
+
+        naruto.addRental(new Rental(avengers, 1));
+        equalsFile("1st Output", "narutoBill", naruto.statement());
+    }
+
+    public void testShouldReturnTheStatementWhenPurchasedARegularMovie() throws Exception {
+        Customer kakashi = new Customer("Kakashi");
+        Movie avengers = new RegularMovie("Avengers");
+
+        kakashi.addRental(new Rental(avengers, 3));
+        equalsFile("1st Output", "kakashiBill", kakashi.statement());
+    }
+
     /*
     public void testHtml() throws Exception {
         equalsFile("1st Output", "outputHtml", dinsdale.htmlStatement());
     }
     */
     	
-    protected void equalsFile(String message, String fileName, String actualValue) throws IOException{
+    private void equalsFile(String message, String fileName, String actualValue) throws IOException{
         BufferedReader file = new BufferedReader (new FileReader (GOLD_PATH + '/' + fileName));
         BufferedReader actualStream = new BufferedReader (new StringReader (actualValue));
         String thisFileLine = null;
