@@ -56,6 +56,14 @@ public class CustomerTest extends TestCase {
         equalsFile("1st Output", "kakashiBill", kakashi.statement());
     }
 
+    public void testShouldReturnTheStatementWhenPurchasedANewRealeasedMovie() throws Exception {
+        Customer lee = new Customer("Lee");
+        Movie avengers = new NewReleasedMovie("Avengers");
+
+        lee.addRental(new Rental(avengers, 1));
+        equalsFile("1st Output", "leeBill", lee.statement());
+    }
+
     /*
     public void testHtml() throws Exception {
         equalsFile("1st Output", "outputHtml", dinsdale.htmlStatement());
