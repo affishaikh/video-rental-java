@@ -18,7 +18,8 @@ class Rental {
     }
 
     double calculateAmount() {
-        return this.movie.calculateAmountFor(this.daysRented);
+        MovieRentCalculator rentCalculatorFor = MovieRentCalculator.getRentCalculatorFor(this.movie.getPriceCode());
+        return rentCalculatorFor.calculateAmount(this.daysRented);
     }
 
     int calculatePoints() {
