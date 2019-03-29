@@ -2,10 +2,11 @@ package com.twu.refactor;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 class Customer {
 	private String name;
-	private ArrayList<Rental> rentalList = new ArrayList<Rental>();
+	private List<Rental> rentalList = new ArrayList<Rental>();
 
 	Customer(String name) {
 		this.name = name;
@@ -15,7 +16,7 @@ class Customer {
 		rentalList.add(arg);
 	}
 
-	String statement() {
+	String statement() throws InvalidPriceCodeException {
 		double totalAmount = 0;
 		int frequentRenterPoints = 0;
 		Iterator<Rental> rentals = rentalList.iterator();

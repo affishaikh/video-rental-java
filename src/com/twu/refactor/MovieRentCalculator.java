@@ -6,7 +6,7 @@ abstract class MovieRentCalculator {
 
     abstract int getPointsFor(int days);
 
-    static MovieRentCalculator getRentCalculatorFor(int priceCode) {
+    static MovieRentCalculator getCalculatorFor(int priceCode) throws InvalidPriceCodeException {
         MovieRentCalculator movieRentCalculator = null;
 
         switch (priceCode) {
@@ -19,6 +19,10 @@ abstract class MovieRentCalculator {
             case Movie.CHILDRENS:
                 movieRentCalculator = new ChildrenMovieRentCalculator();
                 break;
+        }
+
+        if(movieRentCalculator == null) {
+            throw new InvalidPriceCodeException();
         }
 
         return movieRentCalculator;

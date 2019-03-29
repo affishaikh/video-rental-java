@@ -1,6 +1,6 @@
 package com.twu.refactor;
 
-public class ChildrenMovieRentCalculator extends MovieRentCalculator {
+class ChildrenMovieRentCalculator extends MovieRentCalculator {
 
     @Override
     double calculateAmount(int days) {

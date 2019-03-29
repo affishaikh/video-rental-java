@@ -17,13 +17,18 @@ class Rental {
         return movie;
     }
 
-    double calculateAmount() {
-        MovieRentCalculator rentCalculatorFor = MovieRentCalculator.getRentCalculatorFor(this.movie.getPriceCode());
-        return rentCalculatorFor.calculateAmount(this.daysRented);
+    double calculateAmount() throws InvalidPriceCodeException {
+        MovieRentCalculator rentCalculator = MovieRentCalculator.getCalculatorFor(this.getMoviePriceCode());
+        return rentCalculator.calculateAmount(this.daysRented);
     }
 
-    int calculatePoints() {
-        MovieRentCalculator rentCalculatorFor = MovieRentCalculator.getRentCalculatorFor(this.movie.getPriceCode());
-        return rentCalculatorFor.getPointsFor(this.daysRented);
+
+    int calculatePoints() throws InvalidPriceCodeException {
+        MovieRentCalculator rentCalculator = MovieRentCalculator.getCalculatorFor(this.getMoviePriceCode());
+        return rentCalculator.getPointsFor(this.daysRented);
+    }
+
+    private int getMoviePriceCode() {
+        return this.movie.getPriceCode();
     }
 }
