@@ -7,38 +7,38 @@ import java.util.List;
 class Customer {
 	private String name;
 	private List<Rental> rentalList = new ArrayList<Rental>();
+	private Rentals rentals;
 
 	Customer(String name) {
 		this.name = name;
+		this.rentals = new Rentals();
 	}
 
-	void addRental(Rental arg) {
-		rentalList.add(arg);
+	void addRental(Rental rental) {
+		rentalList.add(rental);
+		rentals.add(rental);
 	}
 
 	String statement() throws InvalidPriceCodeException {
-		double totalAmount = 0;
-		int frequentRenterPoints = 0;
+		double totalAmount = rentals.calculateAmount();
+		int frequentRenterPoints = rentals.calculatePoints();
+		StringBuilder result = generateStatement(totalAmount, frequentRenterPoints);
+		return result.toString();
+	}
+
+	private StringBuilder generateStatement(double totalAmount, int frequentRenterPoints) throws InvalidPriceCodeException {
 		Iterator<Rental> rentals = rentalList.iterator();
 		StringBuilder result = new StringBuilder("Rental Record for " + getName() + "\n");
 		while (rentals.hasNext()) {
 			double amountForSpecificMovie;
 			Rental rental = rentals.next();
-
 			amountForSpecificMovie = rental.calculateAmount();
-
-			// add frequent renter points
-			frequentRenterPoints += rental.calculatePoints();
-
-			// show figures for this rental
 			result.append("\t").append(rental.getMovie().getTitle()).append("\t").append(amountForSpecificMovie).append("\n");
-			totalAmount += amountForSpecificMovie;
 		}
 
-		// add footer lines
 		result.append("Amount owed is ").append(totalAmount).append("\n");
 		result.append("You earned ").append(frequentRenterPoints).append(" frequent renter points");
-		return result.toString();
+		return result;
 	}
 
 	private String getName() {
