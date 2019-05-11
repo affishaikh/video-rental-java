@@ -11,7 +11,6 @@ class Rentals {
         return this;
     }
 
-
     double calculateAmount() throws InvalidPriceCodeException {
         double totalAmount = 0;
 

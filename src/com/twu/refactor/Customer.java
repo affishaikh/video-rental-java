@@ -1,7 +1,6 @@
 package com.twu.refactor;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 class Customer {
@@ -22,22 +21,32 @@ class Customer {
 	String statement() throws InvalidPriceCodeException {
 		double totalAmount = rentals.calculateAmount();
 		int frequentRenterPoints = rentals.calculatePoints();
-		StringBuilder result = generateStatement(totalAmount, frequentRenterPoints);
+		return generateStatement(totalAmount, frequentRenterPoints);
+	}
+
+	private String generateStatement(double totalAmount, int frequentRenterPoints) throws InvalidPriceCodeException {
+		String result = generateHeader() + generateMidSection() +
+				generateFooter(totalAmount, frequentRenterPoints);
+		return result;
+	}
+
+	private String generateHeader() {
+		return "Rental Record for " + getName() + "\n";
+	}
+
+	private String generateMidSection() throws InvalidPriceCodeException {
+		StringBuilder result = new StringBuilder();
+		for (Rental rental1 : this.rentalList) {
+			double amountForSpecificMovie;
+			amountForSpecificMovie = rental1.calculateAmount();
+			result.append("\t").append(rental1.getMovie().getTitle()).append("\t").append(amountForSpecificMovie).append("\n");
+		}
 		return result.toString();
 	}
 
-	private StringBuilder generateStatement(double totalAmount, int frequentRenterPoints) throws InvalidPriceCodeException {
-		Iterator<Rental> rentals = rentalList.iterator();
-		StringBuilder result = new StringBuilder("Rental Record for " + getName() + "\n");
-		while (rentals.hasNext()) {
-			double amountForSpecificMovie;
-			Rental rental = rentals.next();
-			amountForSpecificMovie = rental.calculateAmount();
-			result.append("\t").append(rental.getMovie().getTitle()).append("\t").append(amountForSpecificMovie).append("\n");
-		}
-
-		result.append("Amount owed is ").append(totalAmount).append("\n");
-		result.append("You earned ").append(frequentRenterPoints).append(" frequent renter points");
+	private String generateFooter(double totalAmount, int frequentRenterPoints) {
+		String result = "Amount owed is " + totalAmount + "\n" +
+				"You earned " + frequentRenterPoints + " frequent renter points";
 		return result;
 	}
 
